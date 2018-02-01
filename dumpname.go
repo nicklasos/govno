@@ -10,31 +10,24 @@ import (
 func Convert(name string) string {
 	date := time.Now()
 
-	year := fmt.Sprintf("%d", date.Year())
-	month := fmt.Sprintf("%d", date.Month())
-	day := fmt.Sprintf("%d", date.Day())
-	hour := fmt.Sprintf("%d", date.Hour())
-	minute := fmt.Sprintf("%d", date.Minute())
-	second := fmt.Sprintf("%d", date.Second())
 	_, isoWeekday := date.ISOWeek()
 	weekday := fmt.Sprintf("%d", isoWeekday)
-	week := fmt.Sprintf("%d", numberOfTheWeek(date))
-	timestamp := fmt.Sprintf("%d", time.Now().Unix())
+
 	hostname, err := os.Hostname()
 	if err != nil {
 		panic(err)
 	}
 
 	replacer := strings.NewReplacer(
-		"{year}", year,
-		"{month}", month,
-		"{day}", day,
-		"{hours}", hour,
-		"{minutes}", minute,
-		"{seconds}", second,
+		"{year}", fmt.Sprintf("%d", date.Year()),
+		"{month}", fmt.Sprintf("%d", date.Month()),
+		"{day}", fmt.Sprintf("%d", date.Day()),
+		"{hours}", fmt.Sprintf("%d", date.Hour()),
+		"{minutes}", fmt.Sprintf("%d", date.Minute()),
+		"{seconds}", fmt.Sprintf("%d", date.Second()),
 		"{weekday}", weekday,
-		"{week}", week,
-		"{timestamp}", timestamp,
+		"{week}", fmt.Sprintf("%d", numberOfTheWeek(date)),
+		"{timestamp}", fmt.Sprintf("%d", time.Now().Unix()),
 		"{hostname}", hostname,
 	)
 
