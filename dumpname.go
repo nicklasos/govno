@@ -1,13 +1,14 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
 	"time"
 )
 
-func Convert(name string) string {
+func Convert(name string) (string, error) {
 	date := time.Now()
 
 	_, isoWeekday := date.ISOWeek()
@@ -15,7 +16,7 @@ func Convert(name string) string {
 
 	hostname, err := os.Hostname()
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 
 	replacer := strings.NewReplacer(
@@ -31,7 +32,13 @@ func Convert(name string) string {
 		"{hostname}", hostname,
 	)
 
-	return replacer.Replace(name)
+	result := replacer.Replace(name)
+
+	if strings.ContainsAny(result, "{}") {
+		return "", errors.New("Undefined placeholders")
+	}
+
+	return result, nil
 }
 
 func numberOfTheWeek(now time.Time) int {
