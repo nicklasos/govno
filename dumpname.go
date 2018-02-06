@@ -35,7 +35,7 @@ func Convert(name string) (string, error) {
 	result := replacer.Replace(name)
 
 	if strings.ContainsAny(result, "{}") {
-		return "", errors.New("Undefined placeholders")
+		return "", errors.New("undefined placeholders")
 	}
 
 	return result, nil

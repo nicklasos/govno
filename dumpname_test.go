@@ -36,7 +36,7 @@ func TestConvert(t *testing.T) {
 
 func TestConvertErr(t *testing.T) {
 	_, err := Convert("{typo}")
-	if err.Error() != "Undefined placeholders" {
+	if err.Error() != "undefined placeholders" {
 		t.Error("Detecting typos is not working")
 	}
 }

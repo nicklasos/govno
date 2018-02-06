@@ -1,0 +1,12 @@
+[[database]]
+name = "database_name"
+host = "127.0.0.1"
+bucket = "backup_site"
+
+    [[database.vno]]
+    name = "daily"
+    path = "{month}/{day}"
+
+    [[database.vno]]
+    name = "monthly"
+    path = "{year}/{month}/{day}"
