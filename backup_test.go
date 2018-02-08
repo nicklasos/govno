@@ -15,13 +15,20 @@ func (s *MockStorage) Upload(bucket, file, dest string) error {
 }
 
 type MockBackup struct {
-	Done bool
+	Created bool
+	Cleared bool
 }
 
 func (b *MockBackup) Create(db, file string) error {
 	if db == "database_name" {
-		b.Done = true
+		b.Created = true
 	}
+
+	return nil
+}
+
+func (b *MockBackup) Clear(file string) error {
+	b.Cleared = true
 
 	return nil
 }
@@ -30,7 +37,7 @@ func TestBackupDatabase(t *testing.T) {
 	config, _ := ReadConfig("govno.toml")
 
 	mockStorage := &MockStorage{false}
-	mockBackup := &MockBackup{false}
+	mockBackup := &MockBackup{false, false}
 
 	BackupDatabase(config.Database, "daily", mockStorage, mockBackup)
 
@@ -38,7 +45,11 @@ func TestBackupDatabase(t *testing.T) {
 		t.Error("Error in Upload")
 	}
 
-	if !mockBackup.Done {
+	if !mockBackup.Created {
 		t.Error("Error in Create")
+	}
+
+	if !mockBackup.Cleared {
+		t.Error("Error in Clear")
 	}
 }

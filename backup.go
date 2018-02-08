@@ -6,6 +6,7 @@ type Storage interface {
 
 type Dump interface {
 	Create(db, file string) error
+	Clear(file string) error
 }
 
 func BackupDatabase(database []Database, vnoName string, storage Storage, dump Dump) error {
@@ -25,6 +26,11 @@ func BackupDatabase(database []Database, vnoName string, storage Storage, dump D
 				}
 
 				err = storage.Upload(db.Bucket, tmpBackupFile, path)
+				if err != nil {
+					return err
+				}
+
+				err = dump.Clear(tmpBackupFile)
 				if err != nil {
 					return err
 				}

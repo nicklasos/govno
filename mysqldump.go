@@ -1,6 +1,9 @@
 package main
 
-import "github.com/codeskyblue/go-sh"
+import (
+	"github.com/codeskyblue/go-sh"
+	"os"
+)
 
 type MySQLDump struct{}
 
@@ -17,4 +20,8 @@ func (d *MySQLDump) Create(db, file string) error {
 	}
 
 	return nil
+}
+
+func (d *MySQLDump) Clear(file string) error {
+	return os.Remove(file)
 }
