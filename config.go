@@ -5,12 +5,12 @@ import "github.com/BurntSushi/toml"
 type Vno struct {
 	Name   string
 	Path   string
-	Bucket string
 }
 
 type Database struct {
 	Name string
 	Host string
+	Bucket string
 	Vno  []Vno
 }
 

@@ -7,9 +7,21 @@
   revision = "b26d9c308763d68093482582cea63d69be07a0f0"
   version = "v0.3.0"
 
+[[projects]]
+  name = "github.com/codegangsta/inject"
+  packages = ["."]
+  revision = "37d7f8432a3e684eef9b2edece76bdfa6ac85b39"
+  version = "v1.0-rc1"
+
+[[projects]]
+  name = "github.com/codeskyblue/go-sh"
+  packages = ["."]
+  revision = "b097669b1569203c3ce05a6b8717d43140fdb3d5"
+  version = "0.2"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bb5a15c45d7c3fec4b89ddf7677e0624aeff207407259cb1d829e60504375cf3"
+  inputs-digest = "062ea427e88967dd5c99a2e6ccd908901e44f86996e90b74f75d0f13d15299f5"
   solver-name = "gps-cdcl"
   solver-version = 1

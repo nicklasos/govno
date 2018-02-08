@@ -5,8 +5,8 @@ bucket = "backup_site"
 
     [[database.vno]]
     name = "daily"
-    path = "{month}/{day}"
+    path = "{month}/{day}/dump.sql.gz"
 
     [[database.vno]]
     name = "monthly"
-    path = "{year}/{month}/{day}"
+    path = "{year}/{month}/{day}/dump.sql.gz"
