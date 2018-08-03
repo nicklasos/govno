@@ -3,15 +3,16 @@ package main
 import "github.com/BurntSushi/toml"
 
 type Vno struct {
-	Name   string
-	Path   string
+	Name string
+	Path string
 }
 
 type Database struct {
-	Name string
-	Host string
+	Name   string
+	Host   string
 	Bucket string
-	Vno  []Vno
+	Vno    []Vno
+	Cnf    string
 }
 
 type Config struct {

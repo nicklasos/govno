@@ -2,6 +2,7 @@
 name = "database_name"
 host = "127.0.0.1"
 bucket = "backup_site"
+cnf = "config.cnf"
 
     [[database.vno]]
     name = "daily"

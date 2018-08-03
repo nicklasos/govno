@@ -1,5 +1,10 @@
 package main
 
+import (
+	"time"
+	"fmt"
+)
+
 type Storage interface {
 	Upload(bucket, file, dest string) error
 }
@@ -18,19 +23,15 @@ func BackupDatabase(database []Database, vnoName string, storage Storage, dump D
 					return err
 				}
 
-				tmpBackupFile := "dump.sql.gz"
+				tmpBackupFile := fmt.Sprintf("%d.%s.%s.dump.sql.gz", time.Now().UnixNano(), vnoName, db.Name)
 
 				err = dump.Create(db.Name, tmpBackupFile)
 				if err != nil {
 					return err
 				}
+				defer dump.Clear(tmpBackupFile)
 
 				err = storage.Upload(db.Bucket, tmpBackupFile, path)
-				if err != nil {
-					return err
-				}
-
-				err = dump.Clear(tmpBackupFile)
 				if err != nil {
 					return err
 				}
