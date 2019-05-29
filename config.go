@@ -8,11 +8,14 @@ type Vno struct {
 }
 
 type Database struct {
-	Name   string
-	Host   string
-	Bucket string
-	Vno    []Vno
-	Cnf    string
+	Name      string
+	Host      string
+	Cnf       string
+	AwsBucket string `toml:"aws_bucket"`
+	AwsId     string `toml:"aws_id"`
+	AwsKey    string `toml:"aws_key"`
+	AwsRegion string `toml:"aws_region"`
+	Vno       []Vno
 }
 
 type Config struct {

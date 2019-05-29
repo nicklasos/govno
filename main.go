@@ -1,13 +1,14 @@
 package main
 
 import (
-	"os"
+	"fmt"
 	"log"
+	"os"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		log.Fatal("You should provide vno mane as first parameter")
+		log.Fatal("You should provide vno name as first parameter")
 	}
 
 	vno := os.Args[1]
@@ -22,7 +23,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	err = BackupDatabase(config.Database, vno, &AwsStorage{}, &MySQLDump{})
+	fmt.Println(config)
+
+	err = BackupDatabase(
+		config.Database,
+		vno,
+		&AwsStorage{},
+		&MySQLDump{},
+	)
+
 	if err != nil {
 		log.Fatal(err)
 	}

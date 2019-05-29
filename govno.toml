@@ -1,12 +1,15 @@
 [[database]]
 name = "database_name"
 host = "127.0.0.1"
-bucket = "backup_site"
 cnf = "config.cnf"
+aws_bucket = "backup-site-test"
+aws_id = ""
+aws_key = ""
+aws_region = "us-west-2"
 
     [[database.vno]]
     name = "daily"
-    path = "{month}/{day}/dump.sql.gz"
+    path = "{month}/{day}/dump.1.sql.gz"
 
     [[database.vno]]
     name = "monthly"

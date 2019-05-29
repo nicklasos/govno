@@ -2,7 +2,6 @@ package main
 
 import (
 	"testing"
-	"fmt"
 )
 
 func TestReadConfigError(t *testing.T) {
@@ -15,7 +14,7 @@ func TestReadConfigError(t *testing.T) {
 func TestReadConfig(t *testing.T) {
 	config, err := ReadConfig("govno.toml")
 
-	fmt.Printf("%v+\n", config.Database)
+	// fmt.Printf("%v+\n", config.Database)
 
 	if err != nil {
 		t.Error(err)

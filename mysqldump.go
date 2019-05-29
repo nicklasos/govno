@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/codeskyblue/go-sh"
 	"os"
+
+	"github.com/codeskyblue/go-sh"
 )
 
 type MySQLDump struct{}
@@ -16,7 +17,7 @@ func (d *MySQLDump) Create(db, file string) error {
 	).Command("gzip", "-9").WriteStdout(file)
 
 	if err != nil {
-		return nil
+		return err
 	}
 
 	return nil

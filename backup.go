@@ -1,12 +1,12 @@
 package main
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
 type Storage interface {
-	Upload(bucket, file, dest string) error
+	Upload(db Database, filename, dest string) error
 }
 
 type Dump interface {
@@ -31,7 +31,7 @@ func BackupDatabase(database []Database, vnoName string, storage Storage, dump D
 				}
 				defer dump.Clear(tmpBackupFile)
 
-				err = storage.Upload(db.Bucket, tmpBackupFile, path)
+				err = storage.Upload(db, tmpBackupFile, path)
 				if err != nil {
 					return err
 				}
