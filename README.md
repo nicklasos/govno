@@ -7,6 +7,11 @@ Example of govno.toml
 [[database]]
 name = "database_name" # database name
 host = "127.0.0.1"
+cnf = "config.cnf"
+aws_bucket = "backup-site-test"
+aws_id = ""
+aws_key = ""
+aws_region = "us-west-2"
 
     [[database.vno]]
     name = "daily"
@@ -19,6 +24,7 @@ host = "127.0.0.1"
 [[database]]
 name = "another_database"
 host = "8.8.8.8"
+...
 
     [[database.vno]]
     name = "daily"
@@ -26,7 +32,22 @@ host = "8.8.8.8"
 
 ```
 
-Example of crontab file
+Example of crontab file<br>
+daily - name of vno object
+govno.toml - config location
+```
+0 22 * * * govno daily govno.toml >> /dev/null 2>&1
+```
+
+Also you can put your govno.toml to ~/.govno
 ```
 0 22 * * * govno daily >> /dev/null 2>&1
+```
+
+config.cnf file
+```
+[client]
+user=root
+password=secret
+host=localhost
 ```
