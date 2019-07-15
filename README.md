@@ -2,7 +2,7 @@
 VNO protocol implementation in Go<br>
 VNO is stands for Very Needed Object<br><br>
 
-Example of govno.toml
+Example of govno.toml ~/.govno
 ```toml
 [[database]]
 name = "database_name" # database name
