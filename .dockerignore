@@ -1,0 +1,6 @@
+.git
+.github
+dist
+logovno.jpg
+*.md
+!README.md

@@ -1,0 +1,31 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/govno
+    binary: govno
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin]
+    goarch: [amd64, arm64]
+    flags: [-trimpath]
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - README.md
+      - LICENSE.md
+      - CHANGELOG.md
+      - examples/*
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  disable: true # notes come from CHANGELOG.md, see release.yml

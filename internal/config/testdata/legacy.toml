@@ -9,8 +9,4 @@ aws_region = "us-west-2"
 
     [[database.vno]]
     name = "daily"
-    path = "{month}/{day}/dump.1.sql.gz"
-
-    [[database.vno]]
-    name = "monthly"
-    path = "{year}/{month}/{day}/dump.sql.gz"
+    path = "{month}/{day}/dump.sql.gz"
