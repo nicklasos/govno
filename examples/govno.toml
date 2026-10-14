@@ -1,0 +1,41 @@
+# govno v2 example config.
+# Copy to ~/.govno or /etc/govno/govno.toml, or pass with -config.
+
+# Default storage for every database.
+[s3]
+bucket = "my-backups"
+region = "us-west-2"
+prefix = "mysql/"          # prepended to every key (optional)
+# endpoint = "http://localhost:9000"   # MinIO, Cloudflare R2, etc. (optional)
+# access_key_id = ""                   # optional; empty = AWS default credential chain
+# secret_access_key = ""
+
+[[database]]
+name = "shop"
+defaults_file = "backup.cnf"   # mysql client options; relative to this file
+
+  # 7 rolling daily backups: Monday overwrites last Monday, and so on.
+  [[database.vno]]
+  name = "daily"
+  path = "{db}/daily/{weekday}.sql.gz"
+
+  # One backup per month, keep the last 12.
+  [[database.vno]]
+  name = "monthly"
+  path = "{db}/monthly/{year}-{month}.sql.gz"
+  keep = 12
+
+[[database]]
+name = "blog"
+defaults_file = "/etc/govno/blog.cnf"
+host = "10.0.0.5"                      # overrides host from defaults_file
+mysqldump_args = ["--routines", "--triggers"]
+
+  # Per-database storage override; unset fields come from [s3].
+  [database.s3]
+  bucket = "blog-backups"
+
+  [[database.vno]]
+  name = "daily"
+  path = "{hostname}/{db}/{date}.sql.gz"
+  keep = 30

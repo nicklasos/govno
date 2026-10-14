@@ -1,0 +1,5 @@
+# mysql client options for mysqldump; keep this file chmod 600.
+[client]
+user=backup
+password=secret
+host=localhost

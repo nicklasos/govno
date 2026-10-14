@@ -1,0 +1,15 @@
+[[database]]
+name = "shop"
+
+  [[database.vno]]
+  name = "daily"
+  path = "{typo}/x.sql.gz"
+  keep = -1
+
+  [[database.vno]]
+  name = "daily"
+  path = "x"
+
+[[database]]
+name = "shop"
+defaults_file = "x.cnf"

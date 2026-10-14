@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - run: go vet ./...
+      - run: go test -race -coverprofile=coverage.out ./...
+      - run: go build -o /dev/null ./cmd/govno
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.5.0
+
+  integration:
+    # Real mysqldump against the MySQL server preinstalled on the runner
+    # (root/root); S3 is an in-process fake started by the test itself.
+    runs-on: ubuntu-24.04
+    env:
+      GOVNO_IT_MYSQL_CNF: ${{ github.workspace }}/it.cnf
+      GOVNO_IT_MYSQL_DB: govno_it
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Start and seed MySQL
+        run: |
+          sudo systemctl start mysql.service
+          printf '[client]\nuser=root\npassword=root\nhost=127.0.0.1\nport=3306\n' > it.cnf
+          mysql --defaults-file=it.cnf -e "CREATE DATABASE govno_it"
+          mysql --defaults-file=it.cnf govno_it -e \
+            "CREATE TABLE t (id INT PRIMARY KEY, v VARCHAR(20)); INSERT INTO t VALUES (1,'vno'),(2,'govno');"
+      - run: go test -tags integration -run EndToEnd -v ./internal/backup/
