@@ -25,7 +25,7 @@ A full rewrite. The VNO protocol is now production-grade.
 - Structured logging with `-log-format text|json`. `-version` prints the version.
 - Config lookup via `$GOVNO_CONFIG`, then `~/.govno`, then `/etc/govno/govno.toml`.
 - Prebuilt binaries for linux/darwin × amd64/arm64, and a Docker image at `ghcr.io/nicklasos/govno`.
-- CI (tests, golangci-lint, end-to-end test against MySQL and MinIO).
+- CI (tests, golangci-lint, end-to-end test against a real MySQL server).
 
 ### Fixed
 

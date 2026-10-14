@@ -226,7 +226,7 @@ In v1 the `path` template was ignored, and backups landed in the bucket root as 
 ```bash
 make test         # unit tests with -race
 make lint         # golangci-lint v2
-make integration  # end-to-end against MySQL + MinIO (see .github/workflows/ci.yml)
+make integration  # end-to-end dump → upload → prune (fake S3; real MySQL via GOVNO_IT_* vars)
 make snapshot     # local GoReleaser build into dist/
 ```
 

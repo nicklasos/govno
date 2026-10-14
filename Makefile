@@ -11,8 +11,8 @@ test:
 lint:
 	golangci-lint run
 
-# Needs MySQL + an S3-compatible server; see the GOVNO_IT_* vars in
-# internal/backup/integration_test.go and .github/workflows/ci.yml.
+# Runs standalone (fake S3 + stub mysqldump). Set the GOVNO_IT_* vars from
+# internal/backup/integration_test.go to use a real MySQL and/or S3.
 integration:
 	go test -tags integration -run EndToEnd -v ./internal/backup/
 
